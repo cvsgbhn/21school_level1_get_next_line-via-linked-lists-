@@ -1,33 +1,42 @@
 #include "get_next_line.h"
 
-void	ft_list_content_tostr(char **line, t_list *text_list)
+void ft_lstadd_toend_gnl(t_gnl **alst, t_gnl *new)
 {
-	while (text_list->next)
+	int		length;
+
+	while ((*alst)->next)
+		length++;
+	while (length-- > 0)
+		*alst = (*alst)->next;
+	(*alst)->next = new;
+}
+
+t_gnl	ft_check_fd(int intro_fd, char **line, t_gnl **text_list)
+{
+	int		flag;
+
+	flag == 0;
+	while ((*alst)->next)
 	{
-		*line = ft_strjoin(*line, text_list->content);
-		text_list = text_list->next;
+		if ((*alst)->fd == intro_fd)
+		{
+			//select this element to write there our text
+			flag == 1;
+		}
 	}
+	if (flag == 0)
+	{
+		ft_lstadd_toend_gnl(text_list, ft_lstnew(*line, ft_strlen(line)));
+	}
+	return (text_list);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	t_list		*text_list;
+	t_gnl		*text_list;
 	static char	*ending;
 	char		*ptr_to_end;
 	int			num_read;
 
-
-	while (!ptr_to_end  && num_read = read(fd, buf, BUFF_SIZE))
-	{
-		buf[num_read] = '\0';
-		if ((ptr_to_end = ft_strchr(buf, '\n')))
-		{
-			*ptr_to_end = '\0';
-			ptr_to_end++;
-			ending = ft_strdup(ptr_to_end);
-		}
-		ft_lstadd_toend(text_list, ft_lstnew(buf), (size_t) BUFF_SIZE));
-	}
-	ft_list_content_tostr(line, text_list);
 	return (1);
 }
