@@ -24,16 +24,16 @@ SOURCES = ft_atoi.c ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c 
 
 OBJECTS = ${SOURCES:.c=.o}
 
-INCLUDES = libft.h
+HEADERS = ./libft.h
 
 all: $(NAME) 
 
-$(NAME): $(SRCS) $(OBJECTS) $(INCLUDES)
+$(NAME): $(SOURCES) $(OBJECTS) $(HEADERS)
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 
 $(OBJECTS): %.o: %.c
-	gcc -c -Wall -Wextra -Werror $< -I $(INCLUDES)
+	gcc -c -Wall -Wextra -Werror $< -I. $(HEADERS)
 
 clean:
 	/bin/rm -rf $(OBJECTS) 
