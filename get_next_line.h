@@ -19,13 +19,6 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-typedef struct s_gnl
-{
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
-
 int		get_next_line(const int fd, char **line);
 
 #endif

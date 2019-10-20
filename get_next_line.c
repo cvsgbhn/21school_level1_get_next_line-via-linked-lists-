@@ -1,42 +1,48 @@
 #include "get_next_line.h"
 
-void ft_lstadd_toend_gnl(t_gnl **alst, t_gnl *new)
+t_list	ft_check_fd(int intro_fd, char **line, t_list **text_list)
 {
-	int		length;
-
-	while ((*alst)->next)
-		length++;
-	while (length-- > 0)
-		*alst = (*alst)->next;
-	(*alst)->next = new;
-}
-
-t_gnl	ft_check_fd(int intro_fd, char **line, t_gnl **text_list)
-{
-	int		flag;
-
-	flag == 0;
+        if (fd < 0 || fd > 256)
+          return (-1);
 	while ((*alst)->next)
 	{
-		if ((*alst)->fd == intro_fd)
+		if ((*alst)->content_size == (size_t *)intro_fd)
 		{
-			//select this element to write there our text
-			flag == 1;
+			return(text_list);
 		}
 	}
-	if (flag == 0)
-	{
-		ft_lstadd_toend_gnl(text_list, ft_lstnew(*line, ft_strlen(line)));
-	}
+	ft_lstadd_toend(text_list, ft_lstnew(*line, ft_strlen(line)));
 	return (text_list);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	t_gnl		*text_list;
-	static char	*ending;
-	char		*ptr_to_end;
-	int			num_read;
+	static t_list		*text_list;
+	char	*temp_array;
+	char		buf[BUFF_SIZE + 1];
+	char    *ptr_to_end;
+	int     num_read;
 
-	return (1);
+	if (read(fd, NULL, 0) == -1)
+	  return (-1);
+	text_list = ft_check_fd(fd, line, text_list);
+	while (!ptr_to_end && (num_read = read(fd, buf, BUFF_SIZE)))
+        {
+	  buf[num_read] = '\0';
+	  if ((ptr_to_end = ft_strchr(buf, '\n')))
+          {
+	    *ptr_to_end = '\0';
+	    ptr_to_end++;
+	    text_list->content = ft_strdup(ptr_to_end);
+          }
+	   temp_array = *line;
+	  *line = ft_strjoin(*line, buf);
+	  free(temp_array);
+        }
+	if (!ft_strlen(*line))
+        {
+	  return ((!num_read && !ft_strlen(text_list->content)) ? 0 : 1);
+        }
+	else
+          return (1);
 }
