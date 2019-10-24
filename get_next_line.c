@@ -2,17 +2,20 @@
 
 t_list	ft_check_fd(int intro_fd, char **line, t_list **text_list)
 {
-        if (fd < 0 || fd > 256)
-          return (-1);
-	while ((*alst)->next)
+  size_t  sizeofline;
+
+  sizeofline = 0;
+        if (intro_fd < 0 || intro_fd > 256)
+          return (**text_list);
+	while ((*text_list)->next)
 	{
-		if ((*alst)->content_size == (size_t *)intro_fd)
+		if ((int)(*text_list)->content_size == intro_fd)
 		{
-			return(text_list);
+			return(**text_list);
 		}
 	}
-	ft_lstadd_toend(text_list, ft_lstnew(*line, ft_strlen(line)));
-	return (text_list);
+	ft_lstadd_toend(text_list, ft_lstnew(*line, sizeofline));
+	return (**text_list);
 }
 
 char    *ft_check_endings(char **line, t_list *text_list)
@@ -33,7 +36,15 @@ char    *ft_check_endings(char **line, t_list *text_list)
     else
     {
       *line = ft_strdup(text_list->content);
-      //ft_lstdelone(text_list, size_of_content);   ?????howusethisfuckingshit
+      //write my ft_del
+      /*
+       *   void	ft_del(void *content, size_t size)
+{
+	(void)size;
+	free(content);
+}
+       */
+      ft_lstdelone(text_list, &ft_del);
     }
   }
   else
@@ -51,8 +62,8 @@ int		get_next_line(const int fd, char **line)
 
 	if (read(fd, NULL, 0) == -1)
 	  return (-1);
-	ptr_to_end = ft_check_endings(fd, line);
-	text_list = ft_check_fd(fd, line, text_list);
+	ptr_to_end = ft_check_endings(line, text_list);
+	text_list = ft_check_fd(fd, line, &text_list);
 	while (!ptr_to_end && (num_read = read(fd, buf, BUFF_SIZE)))
         {
 	  buf[num_read] = '\0';
