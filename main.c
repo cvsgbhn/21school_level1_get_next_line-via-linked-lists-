@@ -12,6 +12,6 @@ int		main(void)
 		printf("%d\n", a);
 		printf("%s\n", line);
 	}
-	//printf("%s\n", line);
+	printf("%s\n", line);
 	return (0);
 }
