@@ -6,7 +6,7 @@
 #    By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:56:59 by vdanilo           #+#    #+#              #
-#    Updated: 2019/09/30 19:33:03 by vdanilo          ###   ########.fr        #
+#    Updated: 2019/10/27 16:08:52 by vdanilo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,16 +24,16 @@ SOURCES = ft_atoi.c ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c 
 
 OBJECTS = ${SOURCES:.c=.o}
 
-HEADERS = ./libft.h
+INCLUDES = libft.h
 
 all: $(NAME) 
 
-$(NAME): $(SOURCES) $(OBJECTS) $(HEADERS)
+$(NAME): $(SRCS) $(OBJECTS) $(INCLUDES)
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 
 $(OBJECTS): %.o: %.c
-	gcc -c -Wall -Wextra -Werror $< -I. $(HEADERS)
+	gcc -c -Wall -Wextra -Werror $< -I $(INCLUDES)
 
 clean:
 	/bin/rm -rf $(OBJECTS) 
