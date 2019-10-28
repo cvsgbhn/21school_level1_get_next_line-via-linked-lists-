@@ -15,16 +15,18 @@
 char	*ft_strndup(const char *s1, size_t num)
 {
 	char	*copy;
-	size_t	i;
 
-	i = 0;
-	if (!(copy = ft_strnew(num)))
-	{
+	if ((copy = ft_strnew(num)))
+	  return(ft_strncpy(copy, s1, num));
+	/*{
 		free(copy);
 		return (NULL);
-	}
-	ft_strncpy(copy, s1, num);
-	return (copy);
+	} */
+	else
+          {
+	    free(copy);
+	    return (NULL);
+          }
 }
 
 int		ft_copy_content(char **line, char *content)
@@ -106,6 +108,9 @@ int		get_next_line(const int fd, char **line)
 		free(content);
 	}
 	else
-		content[0] = '\0';
+        {
+	  free(content);
+	  content[0] = '\0';
+        }
 	return (1);
 }
