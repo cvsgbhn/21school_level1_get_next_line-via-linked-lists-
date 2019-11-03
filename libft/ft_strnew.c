@@ -22,7 +22,10 @@ char	*ft_strnew(size_t size)
 		return (NULL);
 	string = ft_memalloc(size + 1);
 	if (!string)
-		return (NULL);
+        {
+	  free(string);
+          return (NULL);
+        }
 	while (size--)
 		string[length++] = '\0';
 	return (string);

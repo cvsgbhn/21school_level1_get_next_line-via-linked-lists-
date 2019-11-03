@@ -14,13 +14,5 @@
 
 char	*ft_strdup(const char *s1)
 {
-	char *copy;
-
-	if (ft_strlen(s1) + 1 < ft_strlen(s1))
-		return (NULL);
-	copy = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (!copy)
-		return (NULL);
-	ft_strcpy(copy, s1);
-	return ((char *)copy);
+  return (ft_strndup(s1, (ft_strlen(s1))));
 }

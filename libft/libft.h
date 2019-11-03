@@ -87,6 +87,9 @@ int		count_num_size(int n);
 int		ft_check_overflow(int flag, int result, int y);
 void	ft_freearr(char **array);
 int		ft_check_symbol(int cntr, const char *str);
+char	*ft_strndup(const char *s1, size_t num);
+
+/*single linked lists job*/
 t_list	*ft_lstnew(void const *content, size_t content_size);
 void	ft_lstadd(t_list **alst, t_list *new);
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem));

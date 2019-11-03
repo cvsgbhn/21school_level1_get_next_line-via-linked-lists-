@@ -20,7 +20,7 @@ SOURCES = ft_atoi.c ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c 
 			ft_strnew.c ft_strsub.c ft_strjoin.c ft_strmap.c ft_strmapi.c set_flag.c write_to_char.c \
 			ft_count_chars.c ft_count_words.c ft_count_whitespaces.c ft_strdel.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_isdigit.c ft_isprint.c ft_strnstr.c count_num_size.c ft_freearr.c ft_check_symbol.c ft_lstnew.c \
-			ft_lstadd.c ft_lstiter.c ft_lstdelone.c ft_lstdel.c ft_lstmap.c ft_lstlength.c ft_lstadd_toend.c
+			ft_lstadd.c ft_lstiter.c ft_lstdelone.c ft_lstdel.c ft_lstmap.c ft_lstlength.c ft_lstadd_toend.c ft_strndup.c
 
 OBJECTS = ${SOURCES:.c=.o}
 
@@ -33,7 +33,7 @@ $(NAME): $(SRCS) $(OBJECTS) $(INCLUDES)
 	ranlib $(NAME)
 
 $(OBJECTS): %.o: %.c
-	gcc -c -Wall -Wextra -Werror $< -I $(INCLUDES)
+	gcc -c -Wall -Wextra -Werror $< -I. $(INCLUDES)
 
 clean:
 	/bin/rm -rf $(OBJECTS) 
