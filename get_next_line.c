@@ -69,26 +69,26 @@ int		get_next_line(const int fd, char **line)
 	static t_list	*static_list;
 	t_list			*temp_list;
 	size_t			fd_read;
-	char			*content;
+	char			*t_content;
 	char			buf[BUFF_SIZE + 1];
 	//char                *garbage;
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
 		return (-1);
-	content = temp_list->content;
-	fd_read = ft_reading(fd, &content);
-	temp_list->content = content;
-	if (!fd_read && !*content)
+	t_content = temp_list->content;
+	fd_read = ft_reading(fd, &t_content);
+	temp_list->content = t_content;
+	if (!fd_read && !*t_content)
 		return (0);
 	fd_read = ft_copy_content(line, temp_list->content);
-	content = temp_list->content;
-	if (content[fd_read] != '\0')
+	t_content = temp_list->content;
+	if (t_content[fd_read] != '\0')
 	{
 	  temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
-	  free(content);
+	  free(t_content);
 	}
 	else
-	  content[0] = '\0';
+	  t_content[0] = '\0';
 	return (1);
 }

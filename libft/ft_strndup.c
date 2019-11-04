@@ -2,13 +2,16 @@
 
 char	*ft_strndup(const char *s1, size_t num)
 {
-  char	*copy;
+  char	*s2;
+  size_t	i;
 
-  if ((copy = ft_strnew(num)))
-    return(ft_strncpy(copy, s1, num));
-  else
-  {
-    free(copy);
+  i = 0;
+  if (!(s2 = ft_strnew(num)))
     return (NULL);
+  while (s1[i] && i < num)
+  {
+    s2[i] = s1[i];
+    i++;
   }
+  return (s2);
 }
