@@ -1,22 +1,22 @@
 #include "get_next_line.h"
 
-/*int		main(void)
-{
-	char 	*line;
-	int 	fd;
-	int		a;
+int		main(void) {
+  char *line;
+  int fd;
+  //int a;
 
-	printf("%s\n", "fucksegfault");
-	fd = open("animals_n1.mp4", O_RDONLY);
-	while ((a = get_next_line(fd, &line)) > 0)
-	{
-		printf("%s\n", line);
-	}
-	return (0);
-}                     */
+  fd = open("gnl11_1.txt", O_RDONLY);
+  while ((get_next_line(fd, &line)) == 1)
+  {
+    printf("%s\n", line);
+  }
+  close(fd);
+  free(line);
+  return (0);
+}
 
 
-int				main(void)
+/*int				main(void)
 {
 	char		*line1;
 	char		*line2;
@@ -184,5 +184,5 @@ int				main(void)
 	else
 		printf("An error occured while opening files %s and/or %s\n", filename1, filename2);
 	return (0);
-}
+}                 */
 

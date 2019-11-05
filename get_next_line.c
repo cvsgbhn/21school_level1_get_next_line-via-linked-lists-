@@ -12,18 +12,18 @@
 
 #include "get_next_line.h"
 
-int		ft_copy_content(char **line, char *content)
+int		ft_copy_content(char **line, char *content, char c)
 {
 	int		counter;
-	char	*tmp;
+	//char	*tmp;
 
 	counter = 0;
-	tmp = *line;
-	while (content[counter] && content[counter] != '\n')
+	//tmp = *line;
+	while (content[counter] && content[counter] != c)
 		counter++;
 	if (!(*line = ft_strndup(content, counter)))
 		return (0);
-	free(tmp);
+	free(content);
 	return (counter);
 }
 
@@ -71,24 +71,33 @@ int		get_next_line(const int fd, char **line)
 	size_t			fd_read;
 	char			*t_content;
 	char			buf[BUFF_SIZE + 1];
-	//char                *garbage;
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
-		return (-1);
+	{
+	    //free(temp_list);
+        return (-1);
+	}
 	t_content = temp_list->content;
 	fd_read = ft_reading(fd, &t_content);
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
-		return (0);
-	fd_read = ft_copy_content(line, temp_list->content);
+    {
+	    free (t_content);
+	    return (0);
+    }
+	fd_read = ft_copy_content(line, temp_list->content, '\n');
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
 	{
 	  temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
 	  free(t_content);
 	}
-	else
-	  t_content[0] = '\0';
+	else {
+          t_content[0] = '\0';
+          free(temp_list->content);
+        }
+	free(t_content);
+
 	return (1);
 }
