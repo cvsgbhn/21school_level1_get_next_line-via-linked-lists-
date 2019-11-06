@@ -71,6 +71,7 @@ int		get_next_line(const int fd, char **line)
 	size_t			fd_read;
 	char			*t_content;
 	char			buf[BUFF_SIZE + 1];
+	char *try;
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
@@ -88,16 +89,18 @@ int		get_next_line(const int fd, char **line)
     }
 	fd_read = ft_copy_content(line, temp_list->content, '\n');
 	t_content = temp_list->content;
+	try = *line;
 	if (t_content[fd_read] != '\0')
 	{
 	  temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
 	  free(t_content);
 	}
 	else {
+          //t_content[0] = '\0';
+          //free(temp_list->content);
+          free(t_content);
           t_content[0] = '\0';
-          free(temp_list->content);
         }
-	free(t_content);
-
+	free(try);
 	return (1);
 }
