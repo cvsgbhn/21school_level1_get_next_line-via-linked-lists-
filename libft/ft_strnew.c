@@ -20,9 +20,6 @@ char	*ft_strnew(size_t size)
 		return (NULL);
 	string = ft_memalloc(size + 1);
 	if (!string)
-        {
-	  free(string);
           return (NULL);
-        }
 	return (string);
 }

@@ -18,12 +18,17 @@ int		ft_copy_content(char **line, char *content, char c)
 	char	*tmp;
 
 	counter = 0;
+	tmp = NULL;
 	while (content[counter] && content[counter] != c)
 		counter++;
-	tmp = *line;
+	if (ft_strlen(*line) > 1)
+	    tmp = *line;
+	//free(tmp);
+	//line = &tmp;
 	if (!(*line = ft_strndup(content, counter)))
 		return (0);
-	//free(tmp);
+	if (tmp != NULL)
+	    free(tmp);
 	return (counter);
 }
 
@@ -60,8 +65,9 @@ t_list	*ft_check_fd(int fd, t_list **static_list)
 			return (tmp_lst);
 		tmp_lst = tmp_lst->next;
 	}
-	tmp_lst = ft_lstnew("", fd);
+	tmp_lst = ft_lstnew("\0", fd);
 	ft_lstadd(static_list, tmp_lst);
+	//tmp_lst = *static_list;
 	return (tmp_lst);
 }
 
@@ -72,7 +78,6 @@ int		get_next_line(const int fd, char **line)
 	size_t			fd_read;
 	char			*t_content;
 	char			buf[BUFF_SIZE + 1];
-	//char *try;
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
@@ -84,7 +89,6 @@ int		get_next_line(const int fd, char **line)
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
 	    return (0);
-	//try = *line;
 	fd_read = ft_copy_content(line, temp_list->content, '\n');
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
@@ -92,8 +96,8 @@ int		get_next_line(const int fd, char **line)
 	  temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
 	  free(t_content);
 	}
-	else {
-          free(t_content);
+	else
+	{
           t_content[0] = '\0';
         }
 
