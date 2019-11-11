@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 16:29:13 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/10/27 18:45:18 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/11 17:12:55 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ int		ft_copy_content(char **line, char *content, char c)
 	tmp = NULL;
 	while (content[counter] && content[counter] != c)
 		counter++;
-	if (ft_strlen(*line) > 1)
+	if (ft_strlen(*line) > 0)
 	    tmp = *line;
-	//free(tmp);
-	//line = &tmp;
+	//tmp = *line;
 	if (!(*line = ft_strndup(content, counter)))
-		return (0);
+		return (-1);
 	if (tmp != NULL)
 	    free(tmp);
 	return (counter);
@@ -48,7 +47,6 @@ int		ft_reading(const int fd, char **line)
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	//free(tmp_str);
 	return (fd_read);
 }
 
@@ -67,7 +65,6 @@ t_list	*ft_check_fd(int fd, t_list **static_list)
 	}
 	tmp_lst = ft_lstnew("\0", fd);
 	ft_lstadd(static_list, tmp_lst);
-	//tmp_lst = *static_list;
 	return (tmp_lst);
 }
 
@@ -88,7 +85,9 @@ int		get_next_line(const int fd, char **line)
 	fd_read = ft_reading(fd, &t_content);
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
-	    return (0);
+	{
+		return (0);
+	}
 	fd_read = ft_copy_content(line, temp_list->content, '\n');
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
@@ -97,10 +96,7 @@ int		get_next_line(const int fd, char **line)
 	  free(t_content);
 	}
 	else
-	{
-          t_content[0] = '\0';
-        }
+		t_content[0] = '\0';
 
-	//free(try);
 	return (1);
 }
