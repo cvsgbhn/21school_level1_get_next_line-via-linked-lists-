@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 16:29:13 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/11 17:12:55 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/14 20:53:23 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		ft_copy_content(char **line, char *content, char c)
 		counter++;
 	if (ft_strlen(*line) > 0)
 	    tmp = *line;
-	//tmp = *line;
 	if (!(*line = ft_strndup(content, counter)))
 		return (-1);
 	if (tmp != NULL)
@@ -36,6 +35,7 @@ int		ft_reading(const int fd, char **line)
 	int		fd_read;
 	char	*tmp_str;
 	char	buf[BUFF_SIZE + 1];
+	char 	*place;
 
 	while ((fd_read = read(fd, buf, BUFF_SIZE)))
 	{
@@ -44,7 +44,7 @@ int		ft_reading(const int fd, char **line)
 		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
 		free(tmp_str);
-		if (ft_strchr(buf, '\n'))
+		if ((place = ft_strchr(buf, '\n')))
 			break ;
 	}
 	return (fd_read);
@@ -78,17 +78,14 @@ int		get_next_line(const int fd, char **line)
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
-	{
         return (-1);
-	}
 	t_content = temp_list->content;
 	fd_read = ft_reading(fd, &t_content);
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
-	{
 		return (0);
-	}
-	fd_read = ft_copy_content(line, temp_list->content, '\n');
+	if (!(fd_read = ft_copy_content(line, temp_list->content, '\n')))
+		free(*line);
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
 	{
@@ -97,6 +94,5 @@ int		get_next_line(const int fd, char **line)
 	}
 	else
 		t_content[0] = '\0';
-
 	return (1);
 }
