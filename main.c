@@ -5,7 +5,7 @@ int		main(void) {
   int fd;
   //int a;
 
-  fd = open("./srcs/gnl1_1.txt", O_RDONLY);
+  fd = open("gnl11_1.txt", O_RDONLY);
   while ((get_next_line(fd, &line)) == 1)
   {
     printf("%s\n", line);

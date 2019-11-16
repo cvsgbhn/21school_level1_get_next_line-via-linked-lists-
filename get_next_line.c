@@ -21,10 +21,10 @@ int		ft_copy_content(char **line, char *content, char c)
 	tmp = NULL;
 	while (content[counter] && content[counter] != c)
 		counter++;
-	if (ft_strlen(*line) > 0)
+	if (ft_strlen(*line) > 1)
 	    tmp = *line;
 	if (!(*line = ft_strndup(content, counter)))
-		return (-1);
+		return (0);
 	if (tmp != NULL)
 	    free(tmp);
 	return (counter);
@@ -35,7 +35,6 @@ int		ft_reading(const int fd, char **line)
 	int		fd_read;
 	char	*tmp_str;
 	char	buf[BUFF_SIZE + 1];
-	char 	*place;
 
 	while ((fd_read = read(fd, buf, BUFF_SIZE)))
 	{
@@ -44,7 +43,7 @@ int		ft_reading(const int fd, char **line)
 		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
 		free(tmp_str);
-		if ((place = ft_strchr(buf, '\n')))
+		if ((ft_strchr(buf, '\n')))
 			break ;
 	}
 	return (fd_read);

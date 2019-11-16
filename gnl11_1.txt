@@ -12,3 +12,4 @@ The caller may provide a pointer to a malloced buffer for the line in
 expand the buffer as needed, as if via realloc().  If linep points to a NULL
 pointer, a new buffer will be allocated.  In either case, *linep and
 *linecapp will be up-dated accordingly.
+r
