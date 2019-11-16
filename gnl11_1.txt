@@ -3,6 +3,10 @@ delimiter.  The getline() function is equivalent to getdelim() with the new-
 line character as the delimiter.  The delimiter character is included as
 part of the line, unless the end of the file is reached.
 
+
+
+
+
 The caller may provide a pointer to a malloced buffer for the line in
 *linep, and the capacity of that buffer in *linecapp.  These functions
 expand the buffer as needed, as if via realloc().  If linep points to a NULL
