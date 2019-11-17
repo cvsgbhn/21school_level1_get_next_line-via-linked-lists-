@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:40:52 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/11 16:35:40 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/17 15:14:51 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ char	*ft_strnew(size_t size)
 
 	if (size > size + 1)
 		return (NULL);
-	/*string = ft_memalloc(size + 1);  */
-
-        string = (char *)malloc(sizeof(char) * size + 1);
+	string = ft_memalloc(size + 1);
 	if (!string)
           return (NULL);
-	ft_bzero(string, size + 1);
 	return (string);
 }

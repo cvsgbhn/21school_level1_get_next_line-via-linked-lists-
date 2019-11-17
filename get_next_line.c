@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 16:29:13 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/14 20:53:23 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/17 16:51:59 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_copy_content(char **line, char *content, char c)
 	tmp = NULL;
 	while (content[counter] && content[counter] != c)
 		counter++;
-	if (ft_strlen(*line) > 1)
+	if (ft_strlen(*line) > 0)
 	    tmp = *line;
 	if (!(*line = ft_strndup(content, counter)))
 		return (0);
@@ -43,7 +43,7 @@ int		ft_reading(const int fd, char **line)
 		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
 		free(tmp_str);
-		if ((ft_strchr(buf, '\n')))
+		if (ft_strchr(buf, '\n'))
 			break ;
 	}
 	return (fd_read);
@@ -62,8 +62,8 @@ t_list	*ft_check_fd(int fd, t_list **static_list)
 			return (tmp_lst);
 		tmp_lst = tmp_lst->next;
 	}
-	tmp_lst = ft_lstnew("\0", fd);
-	ft_lstadd(static_list, tmp_lst);
+	if((tmp_lst = ft_lstnew("\0", fd)))
+		ft_lstadd(static_list, tmp_lst);
 	return (tmp_lst);
 }
 
@@ -77,14 +77,20 @@ int		get_next_line(const int fd, char **line)
 
 	if (fd < 0 || !line || (!(temp_list = ft_check_fd(fd, &static_list)))||
 			(read(fd, buf, 0)) < 0)
-        return (-1);
+		return (-1);
 	t_content = temp_list->content;
 	fd_read = ft_reading(fd, &t_content);
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
 		return (0);
-	if (!(fd_read = ft_copy_content(line, temp_list->content, '\n')))
+	//if (ft_strlen(*line) > 1)
+	//	free(*line);
+	if (!(fd_read = ft_copy_content(line, temp_list->content, '\n')) && ft_strlen(*line) > 0)
 		free(*line);
+	/*if (!fd_read)
+	{
+		free (*line);
+	} // */
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
 	{
