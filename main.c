@@ -9,9 +9,9 @@ int		main(void) {
   while ((get_next_line(fd, &line)) == 1)
   {
     printf("%s\n", line);
+	free(line);
   }
   close(fd);
-  free(line);
   return (0);
 }
 
