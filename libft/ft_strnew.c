@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:40:52 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/17 15:14:51 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/21 21:02:49 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ char	*ft_strnew(size_t size)
 		return (NULL);
 	string = ft_memalloc(size + 1);
 	if (!string)
-          return (NULL);
+		return (NULL);
 	return (string);
 }

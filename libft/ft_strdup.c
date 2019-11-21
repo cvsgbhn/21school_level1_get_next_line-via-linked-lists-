@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 15:04:30 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/09/24 17:09:47 by vdanilo          ###   ########.fr       */
+/*   Updated: 2019/11/21 21:02:49 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*ft_strdup(const char *s1)
 {
-  return (ft_strndup(s1, (ft_strlen(s1))));
+	return (ft_strndup(s1, (ft_strlen(s1))));
 }

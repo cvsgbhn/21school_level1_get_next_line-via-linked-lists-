@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 16:29:13 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/19 20:34:45 by lmittie          ###   ########.fr       */
+/*   Updated: 2019/11/21 20:23:55 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,12 @@ int		get_next_line(const int fd, char **line)
 	temp_list->content = t_content;
 	if (!fd_read && !*t_content)
 		return (0);
-	if (!(fd_read = ft_copy_content(line, temp_list->content, '\n')) && *line && ft_strlen(*line) > 0)
-//		free(*line);
-		ft_putchar('a');
+	fd_read = ft_copy_content(line, temp_list->content, '\n');
 	t_content = temp_list->content;
 	if (t_content[fd_read] != '\0')
 	{
-	  temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
-	  free(t_content);
+		temp_list->content = ft_strdup(&((temp_list->content)[fd_read + 1]));
+		free(t_content);
 	}
 	else
 		t_content[0] = '\0';
